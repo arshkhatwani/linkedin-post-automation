@@ -1,11 +1,21 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from langchain_core.prompts import ChatPromptTemplate
 
 
 class LinkedInPost(BaseModel):
     title: str = Field(description="An attention-grabbing hook or first line for the post")
-    content: str = Field(description="The full body of the LinkedIn post (excluding the title)")
+    content: str = Field(
+        description=(
+            "The full body of the LinkedIn post (excluding the title). "
+            "Use real newlines to separate paragraphs, never literal backslash-n sequences."
+        )
+    )
     hashtags: list[str] = Field(description="3-5 relevant hashtags without the # symbol")
+
+    @field_validator("title", "content")
+    @classmethod
+    def clean_newlines(cls, v: str) -> str:
+        return v.replace("\\n", "\n").strip()
 
 
 class PostSuggestions(BaseModel):
