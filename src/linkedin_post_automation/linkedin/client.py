@@ -3,7 +3,7 @@ import os
 import httpx
 
 
-LINKEDIN_API_VERSION = "202401"
+LINKEDIN_API_VERSION = "202603"
 POSTS_URL = "https://api.linkedin.com/rest/posts"
 
 
