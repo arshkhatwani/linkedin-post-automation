@@ -7,7 +7,7 @@ from linkedin_post_automation.prompts.templates import (
 
 
 def generate_posts(state: dict) -> dict:
-    llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
+    llm = ChatGoogleGenerativeAI(model="gemini-3-flash-preview")
     structured_llm = llm.with_structured_output(PostSuggestions)
 
     chain = POST_GENERATION_PROMPT | structured_llm
